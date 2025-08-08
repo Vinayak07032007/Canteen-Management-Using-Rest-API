@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Canteen Management System</title>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #2d3436;
+      --accent: #00b894;
+      --secondary: #636e72;
+      --background: #f4f6fb;
+      --white: #fff;
+      --shadow: 0 4px 16px rgba(44,62,80,0.07);
+      --radius: 12px;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'Roboto', Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: var(--background);
+      color: #222;
+    }
+
+    .navbar {
+      background: var(--primary);
+      color: var(--white);
+      padding: 0 32px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: var(--shadow);
+    }
+
+    .navbar .brand {
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .navbar .brand span {
+      font-size: 1.7rem;
+    }
+
+    .navbar .links {
+      font-size: 1rem;
+      opacity: 0.8;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 32px auto 0 auto;
+      padding: 0 16px 32px 16px;
+    }
+
+    .section {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      margin-bottom: 32px;
+      padding: 32px 24px 24px 24px;
+      transition: box-shadow 0.2s;
+    }
+
+    .section:hover {
+      box-shadow: 0 8px 32px rgba(44,62,80,0.13);
+    }
+
+    h2, h3 {
+      color: var(--primary);
+      margin-top: 0;
+      font-weight: 700;
+    }
+
+    form {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: center;
+      margin-bottom: 0;
+    }
+
+    form input, form select {
+      flex: 1 1 200px;
+      padding: 10px 12px;
+      border: 1px solid #dfe6e9;
+      border-radius: 6px;
+      font-size: 1rem;
+      background: #fafbfc;
+      transition: border 0.2s;
+    }
+
+    form input:focus, form select:focus {
+      border: 1.5px solid var(--accent);
+      outline: none;
+    }
+
+    form button[type="submit"] {
+      background: var(--accent);
+      color: var(--white);
+      border: none;
+      border-radius: 6px;
+      padding: 10px 24px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    form button[type="submit"]:hover {
+      background: #019170;
+    }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 18px;
+      margin-top: 18px;
+    }
+
+    .menu-item {
+      background: #f8f9fa;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(44,62,80,0.04);
+      padding: 18px 10px;
+      text-align: center;
+      border: 1px solid #e0e0e0;
+      transition: box-shadow 0.2s, border 0.2s;
+    }
+
+    .menu-item:hover {
+      box-shadow: 0 4px 16px rgba(0,184,148,0.13);
+      border: 1.5px solid var(--accent);
+    }
+
+    .menu-item h4 {
+      margin: 0 0 8px 0;
+      color: var(--primary);
+      font-size: 1.1rem;
+    }
+
+    .menu-item button {
+      margin-top: 10px;
+      padding: 7px 16px;
+      background: var(--primary);
+      color: var(--white);
+      border: none;
+      border-radius: 5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .menu-item button:hover {
+      background: var(--accent);
+    }
+
+    .order-items div {
+      margin: 6px 0;
+      font-size: 1rem;
+    }
+
+    .order-section p {
+      font-size: 1.1rem;
+      font-weight: 500;
+      margin: 10px 0 0 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      background: #fafbfc;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(44,62,80,0.04);
+    }
+
+    th, td {
+      padding: 12px 8px;
+      text-align: center;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    th {
+      background: var(--secondary);
+      color: var(--white);
+      font-weight: 700;
+      font-size: 1rem;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tbody tr:hover {
+      background: #f1f2f6;
+    }
+
+    .footer {
+      background: var(--primary);
+      color: var(--white);
+      text-align: center;
+      padding: 18px 0 12px 0;
+      font-size: 1rem;
+      letter-spacing: 0.5px;
+      margin-top: 32px;
+    }
+
+    .readme-section {
+      background: #f8f9fa;
+      border-radius: var(--radius);
+      box-shadow: 0 2px 8px rgba(44,62,80,0.04);
+      padding: 24px 18px;
+      margin-bottom: 32px;
+      font-size: 1.05rem;
+      color: #333;
+    }
+
+    @media (max-width: 700px) 
+    {
+      .container { padding: 0 4px; }
+      .section, .readme-section { padding: 18px 6px; }
+      .navbar { flex-direction: column; height: auto; padding: 12px 0; }
+    }
+
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <div class="brand">Canteen Management</div>
+   
+  </div>
+ 
+    <div class="section add-menu-section">
+      <h3>Add New Menu Item</h3>
+      <form id="menuForm">
+        <input type="text" id="menuItemName" placeholder="Item Name (e.g. Sandwich)" required>
+        <input type="number" id="menuItemPrice" placeholder="Price (e.g. 50)" step="0.01" min="1" required>
+        <button type="submit">Add Item</button>
+      </form>
+    </div>
+    <div class="section menu-section">
+      <h2>Today's Menu</h2>
+      <div id="menuGrid" class="menu-grid"></div>
+    </div>
+    <div class="section order-section">
+      <h3>Current Order</h3>
+      <div id="currentOrder" class="order-items"></div>
+      <p>Total: ₹<span id="totalAmount">0.00</span></p>
+      <form id="orderForm">
+        <input type="text" id="customerName" placeholder="Customer Name" required>
+        <select id="tableNumber" required>
+          <option value="">Select Table</option>
+          <option value="1">Table 1</option>
+          <option value="2">Table 2</option>
+          <option value="3">Table 3</option>
+          <option value="4">Table 4</option>
+          <option value="5">Table 5</option>
+        </select>
+        <button type="submit">Place Order</button>
+      </form>
+    </div>
+    <div class="section history-section">
+      <h3>Order History</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Order ID</th>
+            <th>Customer</th>
+            <th>Table</th>
+            <th>Items</th>
+            <th>Total</th>
+            <th>Time</th>
+          </tr>
+        </thead>
+        <tbody id="orderHistoryTable"></tbody>
+      </table>
+    </div>
+  </div>
+  
+  <script>
+    let currentOrder = [];
+    document.addEventListener('DOMContentLoaded', () => {
+      testDatabaseConnection();
+      fetchMenu();
+      fetchOrderHistory();
+    });
+    async function testDatabaseConnection() {
+      try {
+        const res = await fetch('http://localhost:8080/api/canteen/menu');
+        if (res.ok) {
+          
+        } else {
+          alert(' Failed to connect to database.');
+        }
+      } catch (err) {
+        alert(' Cannot connect to backend server. Please check connection.');
+      }
+    }
+    document.getElementById("menuForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const name = document.getElementById("menuItemName").value.trim();
+      const price = parseFloat(document.getElementById("menuItemPrice").value);
+      if (!name || isNaN(price) || price <= 0) {
+        alert("Please enter valid item details.");
+        return;
+      }
+      const newItem = { name, price };
+      try {
+        const res = await fetch("http://localhost:8080/api/canteen/menu", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(newItem)
+        });
+
+        if (!res.ok) throw new Error("Menu item not added");
+        alert("Menu item added successfully!");
+        document.getElementById("menuForm").reset();
+        fetchMenu();
+      }
+       catch (err) 
+       {
+        alert("Failed to add menu item.");
+        console.error(err);
+      }
+    });
+    async function fetchMenu()
+     {
+      try 
+      {
+        const res = await fetch('http://localhost:8080/api/canteen/menu');
+        const menuItems = await res.json();
+        const menuGrid = document.getElementById('menuGrid');
+        menuGrid.innerHTML = '';
+        menuItems.forEach(item => {
+          const div = document.createElement('div');
+          div.className = 'menu-item';
+          div.innerHTML = `
+            <h4>${item.name}</h4>
+            <p>₹${item.price}</p>
+            <button onclick="addToOrder(${item.id}, '${item.name}', ${item.price})">Add</button>
+          `;
+          menuGrid.appendChild(div);
+        });
+
+      } 
+      catch (err) 
+      {
+        console.error('Failed to fetch menu:', err);
+      }
+    }
+    function addToOrder(id, name, price) 
+    {
+      const existing = currentOrder.find(i => i.id === id);
+      if (existing)
+       {
+        existing.quantity += 1;
+      } else 
+      {
+        currentOrder.push({ id, name, price, quantity: 1 });
+      }
+      renderCurrentOrder();
+    }
+    function renderCurrentOrder() 
+    {
+      const orderDiv = document.getElementById('currentOrder');
+      const totalSpan = document.getElementById('totalAmount');
+      orderDiv.innerHTML = '';
+      let total = 0;
+      currentOrder.forEach(item => {
+        const div = document.createElement('div');
+        div.textContent = `${item.name} x${item.quantity}`;
+        orderDiv.appendChild(div);
+        total += item.quantity * item.price;
+      });
+      totalSpan.textContent = total.toFixed(2);
+    }
+    document.getElementById('orderForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const name = document.getElementById('customerName').value;
+      const table = document.getElementById('tableNumber').value;
+      const orderItems = currentOrder.map(item => ({
+        itemName: item.name,
+        quantity: item.quantity,
+        total: item.quantity * item.price
+      }));
+
+      const totalAmount = orderItems.reduce((sum, i) => sum + i.total, 0);
+      const order = {
+        userName: name,
+        tableNumber: table,
+        itemName: orderItems.map(i => i.itemName).join(", "),
+        quantity: orderItems.reduce((sum, i) => sum + i.quantity, 0),
+        total: totalAmount
+      };
+
+      try 
+      {
+        const res = await fetch('http://localhost:8080/api/canteen/order', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(order)
+        });
+
+        if (res.ok)
+         {
+          alert('Order placed successfully');
+          currentOrder = [];
+          renderCurrentOrder();
+          document.getElementById('orderForm').reset();
+          fetchOrderHistory();
+        } 
+        else 
+        {
+          alert('Failed to place order');
+        }
+      } 
+      catch (err)
+      {
+        console.error('Failed to place order:', err);
+      }
+    });
+    async function fetchOrderHistory() 
+    {
+      try 
+      {
+        const res = await fetch('http://localhost:8080/api/canteen/orders');
+        const orders = await res.json();
+        const tbody = document.getElementById('orderHistoryTable');
+        tbody.innerHTML = '';
+        orders.forEach(order => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td>${order.id}</td>
+            <td>${order.userName}</td>
+            <td>${order.tableNumber}</td>
+            <td>${order.itemName} x${order.quantity}</td>
+            <td>₹${order.total}</td>
+            <td>${order.orderTime}</td>
+          `;
+          tbody.appendChild(tr);
+        });
+      }
+      catch (err) 
+      {
+        console.error('Failed to fetch order history:', err);
+      }
+    }
+  </script>
+</body>
+</html>
