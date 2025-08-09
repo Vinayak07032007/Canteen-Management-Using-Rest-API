@@ -138,7 +138,7 @@ Open [http://localhost:8080](http://localhost:8080) in your browser.
 # 📬 CONTACT
 
 * **Developer:** Vinayak Sonawane
-* **Developer:**Abhishek Mhetre
+* **Developer:** Abhishek Mhetre
 * **Email:** [vinayaksonawane377@gmail.com]
 * **GitHub:** [Vinayak07032007]
 ---
@@ -149,5 +149,6 @@ Open [http://localhost:8080](http://localhost:8080) in your browser.
 
 
 ---
+
 
 
